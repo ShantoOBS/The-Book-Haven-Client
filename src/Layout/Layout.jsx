@@ -11,7 +11,13 @@ export default function Layout() {
 
          <Navbar></Navbar>
          <Outlet />
-         <Footer></Footer>
+
+         <div className='bg-[#0B1120]'>
+
+          <Footer></Footer>
+
+         </div>
+         
         
       
     </div>
