@@ -9,6 +9,7 @@ import MyBook from '../Pages/MyBook';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import NotFound from '../Pages/NotFound';
+import BookDetails from '../Components/BookDetails/BookDetails'
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
         {
           path:'/register' ,
           element: <Register></Register>
+        },
+        {
+          path:'/book-details',
+          element: <BookDetails></BookDetails>
         },
         {
          path:'/*',
