@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 import bookImage from '../../public/assets/book.jpg'
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
+     useEffect(() => {
+     document.title = "Login | Book-Haven";
+     }, []);
+
+  const {signInGoogle ,setUser,setError,setLoading }=useContext(AuthContext)
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,19 +20,19 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
-
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    signInUser(email, password)
-      .then(() => {
-        toast.success("Login successful 🎉");
-        navigate(from, { replace: true });
+
+  };
+
+   const handleGoogleLogin = () => {
+    signInGoogle()
+      .then((res) => {
+        setUser(res.user);
+        navigate(location.state ? location.state : '/');
       })
-      .catch(() => {
-        toast.error("Invalid email or password ❌");
-      })
-      .finally(() => setLoading(false));
+      .catch((err) => setError(err.message));
   };
 
 
@@ -112,6 +118,7 @@ const Login = () => {
 
      
             <motion.button
+             onClick={handleGoogleLogin}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.95 }}
               className="w-full flex justify-center items-center gap-2 bg-white transition-all py-2 rounded-md font-medium"

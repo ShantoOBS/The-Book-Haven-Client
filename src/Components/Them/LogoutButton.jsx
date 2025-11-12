@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const LogoutButton = () => {
+  
+   const {setUser,handleLogout}=useContext(AuthContext);
+
+   const handelLogOut=()=>{
+
+      handleLogout()
+      setUser(null);
+   }
+
   return (
     <StyledWrapper>
-      <button className="Btn">
+      <button 
+      onClick={handelLogOut}
+      className="Btn">
         <div className="sign">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTShZ42ixLLDas7Vp5s07jlza2Bj9jrQKgFm1MITv9G3ncaB4_26oHCvBjS5p8w4j-Rk6OZ8550Ps-g6hw1_kRp-K--BwCY2hhHOycqoFcR&s=10" alt="" />
         </div>

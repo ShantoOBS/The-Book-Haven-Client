@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, {  useContext } from "react";
 import { Link, NavLink } from "react-router"; 
-import Switch from "../Them/Switch";
 import Button from "../Them/Button";
 import LogoutButton from "../Them/LogoutButton";
-
-const Navbar = ({ user, handleLogout }) => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+import { AuthContext } from "../../Provider/AuthProvider";
 
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
+
+const Navbar = () => {
 
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
+  const {user,handleLogout,setUser}=useContext(AuthContext);
 
+   const signOut=()=>{
+      handleLogout()
+      setUser(null);
+   }
+
+   console.log(user);
 
   const navLinkClass = `
     p-2 py-2 text-xs md:text-sm font-semibold tracking-wide
@@ -63,7 +61,11 @@ const Navbar = ({ user, handleLogout }) => {
 
         <div className="flex items-center">
           {user ? (
-            <LogoutButton />
+          
+
+               <LogoutButton />
+         
+           
           ) : (
             <div className="hidden md:flex items-center gap-3">
               <NavLink
@@ -88,7 +90,7 @@ const Navbar = ({ user, handleLogout }) => {
                 {links}
                 {user ? (
                   <button
-                    onClick={handleLogout}
+                    onClick={signOut}
                     className="text-left px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white text-sm transition duration-300"
                   >
                     Log Out
