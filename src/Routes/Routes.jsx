@@ -10,6 +10,7 @@ import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import NotFound from '../Pages/NotFound';
 import BookDetails from '../Components/BookDetails/BookDetails'
+import PrivateRoutes from '../Provider/PrivateRoutes';
 
 export const router = createBrowserRouter([
   {
@@ -34,11 +35,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/add-book',
-        element: <AddBook></AddBook>
+        element: <PrivateRoutes> <AddBook></AddBook> </PrivateRoutes> 
       },
       {
         path: '/my-books',
-        element: <MyBook></MyBook>
+        element:<PrivateRoutes> <MyBook></MyBook> </PrivateRoutes> 
       },
       {
         path: '/login',
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/book-details/:id',
-        element: <BookDetails></BookDetails>
+        element: <PrivateRoutes> <BookDetails></BookDetails> </PrivateRoutes> 
       },
       {
         path: '/*',
