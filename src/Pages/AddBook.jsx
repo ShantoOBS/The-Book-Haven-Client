@@ -21,6 +21,8 @@ const handleSubmit = async (e) => {
     coverImage: form.coverImage.value,
     userEmail: form.userEmail.value,
     userName: form.userName.value,
+    createdAt: new Date().toISOString(),
+    
   };
 
   console.log(bookData); 

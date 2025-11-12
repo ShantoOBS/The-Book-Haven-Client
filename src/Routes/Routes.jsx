@@ -20,17 +20,12 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home></Home>
+        element: <Home></Home>,
+        loader: () => fetch("http://localhost:3000/all-book")
       },
       {
         path: '/all-books',
-        loader: async () => {
-          const res = await fetch('http://localhost:3000/all-book');
-          if (!res.ok) {
-            throw new Response("Failed to load books", { status: res.status });
-          }
-          return res.json();
-        },
+        loader: async () =>  fetch('http://localhost:3000/all-book'),
         element: <AllBook />
       },
       {
