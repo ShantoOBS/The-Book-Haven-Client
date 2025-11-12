@@ -1,45 +1,42 @@
-import React, { useState } from "react";
-// import axios from "axios";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 const AddBook = () => {
-  const [bookData, setBookData] = useState({
-    title: "",
-    author: "",
-    genre: "",
-    rating: "",
-    summary: "",
-    coverImage: "",
-    userEmail: "",
-    userName: "",
-  });
+   useEffect(() => {
+        document.title = "AddBook | Book-Haven";
+      }, []);
 
-  const handleChange = (e) => {
-    setBookData({ ...bookData, [e.target.name]: e.target.value });
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const bookData = {
+    title: form.title.value,
+    author: form.author.value,
+    genre: form.genre.value,
+    rating: form.rating.value,
+    summary: form.summary.value,
+    coverImage: form.coverImage.value,
+    userEmail: form.userEmail.value,
+    userName: form.userName.value,
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  console.log(bookData); 
 
-    // try {
-    //   const res = await axios.post("", bookData);
-    //   if (res.status === 200) {
-    //     toast.success("Book added successfully!");
-    //     setBookData({
-    //       title: "",
-    //       author: "",
-    //       genre: "",
-    //       rating: "",
-    //       summary: "",
-    //       coverImage: "",
-    //       userEmail: "",
-    //       userName: "",
-    //     });
-    //   }
-    // } catch (error) {
-    //   toast.error("Failed to add book ");
-    // }
-  };
+  try {
+    const res = await axios.post("http://localhost:3000/add-book", bookData);
+    if (res.status === 200 || res.status === 201) {
+      toast.success("Book added successfully!");
+      form.reset(); 
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to add book");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-[#0B1120] flex justify-center items-center py-12 px-4">
@@ -55,8 +52,7 @@ const AddBook = () => {
             <input
               type="text"
               name="title"
-              value={bookData.title}
-              onChange={handleChange}
+          
               required
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
               placeholder="Enter book title"
@@ -69,8 +65,6 @@ const AddBook = () => {
             <input
               type="text"
               name="author"
-              value={bookData.author}
-              onChange={handleChange}
               required
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
               placeholder="Enter author name"
@@ -83,8 +77,6 @@ const AddBook = () => {
             <input
               type="text"
               name="genre"
-              value={bookData.genre}
-              onChange={handleChange}
               required
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
               placeholder="e.g. Fantasy, Mystery, Non-Fiction"
@@ -99,8 +91,6 @@ const AddBook = () => {
               name="rating"
               min="1"
               max="5"
-              value={bookData.rating}
-              onChange={handleChange}
               required
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
               placeholder="Enter rating (1-5)"
@@ -112,8 +102,6 @@ const AddBook = () => {
             <label className="block text-gray-300 mb-1">Summary</label>
             <textarea
               name="summary"
-              value={bookData.summary}
-              onChange={handleChange}
               required
               rows="4"
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
@@ -127,8 +115,6 @@ const AddBook = () => {
             <input
               type="text"
               name="coverImage"
-              value={bookData.coverImage}
-              onChange={handleChange}
               required
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
               placeholder="Paste imgbb image URL"
@@ -141,8 +127,6 @@ const AddBook = () => {
             <input
               type="email"
               name="userEmail"
-              value={bookData.userEmail}
-              onChange={handleChange}
               required
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
               placeholder="Enter your email"
@@ -155,8 +139,6 @@ const AddBook = () => {
             <input
               type="text"
               name="userName"
-              value={bookData.userName}
-              onChange={handleChange}
               required
               className="w-full p-3 rounded-md bg-[#0B1120] text-white border border-gray-700 focus:outline-none focus:border-indigo-500"
               placeholder="Enter your name"

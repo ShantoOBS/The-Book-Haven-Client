@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router"; // ✅ fixed import
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { motion } from "framer-motion";
-import bookImage from '../../public/assets/book.jpg';
+import bookImage from "../../public/assets/book.jpg";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -14,10 +14,9 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [localError, setLocalError] = useState("");
 
-  const { signInGoogle, setUser, createUser, setLoading, updatePro } = useContext(AuthContext);
+  const { signInGoogle, setUser, createUser, setLoading, updatePro } =
+    useContext(AuthContext);
   const navigate = useNavigate();
-
-
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -26,7 +25,6 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     const photo = form.photoURL.value;
-
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(password)) {
@@ -42,7 +40,7 @@ const Register = () => {
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-        updatePro(user, { displayName: name, photoURL: photo })
+        updatePro({ displayName: name, photoURL: photo }) 
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
             setLoading(false);
@@ -67,7 +65,8 @@ const Register = () => {
       .then((res) => {
         setUser(res.user);
         setLoading(false);
-        navigate("/"); 
+        toast.success("Login Successful");
+        navigate("/");
       })
       .catch((err) => {
         setLocalError(err.message);
@@ -84,7 +83,7 @@ const Register = () => {
           style={{ backgroundImage: `url(${bookImage})` }}
         ></div>
 
-        
+      
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -100,7 +99,9 @@ const Register = () => {
             </p>
 
             {localError && (
-              <p className="text-red-500 text-sm text-center mb-2">{localError}</p>
+              <p className="text-red-500 text-sm text-center mb-2">
+                {localError}
+              </p>
             )}
 
             <form onSubmit={handleRegister} className="space-y-5">

@@ -1,22 +1,20 @@
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router"; 
 import Button from "../Them/Button";
 import LogoutButton from "../Them/LogoutButton";
 import { AuthContext } from "../../Provider/AuthProvider";
 
-
-
 const Navbar = () => {
+  const { user, signOutUser, setUser } = useContext(AuthContext);
 
 
-  const {user,handleLogout,setUser}=useContext(AuthContext);
-
-   const signOut=()=>{
-      handleLogout()
-      setUser(null);
-   }
-
-   console.log(user);
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => console.error("Logout error:", error));
+  };
 
   const navLinkClass = `
     p-2 py-2 text-xs md:text-sm font-semibold tracking-wide
@@ -43,7 +41,7 @@ const Navbar = () => {
   return (
     <header className="fixed w-full z-50 backdrop-blur-md">
       <div className="max-w-6xl mx-auto flex justify-between items-center px-5 md:px-15 py-3">
-
+      
         <div className="flex items-center">
           <Link
             to="/"
@@ -53,19 +51,15 @@ const Navbar = () => {
           </Link>
         </div>
 
-   
-        <nav className="hidden md:flex items-center text-gray-300  dark:text-gray-200">
+     
+        <nav className="hidden md:flex items-center text-gray-300 dark:text-gray-200">
           {links}
         </nav>
 
-
         <div className="flex items-center">
           {user ? (
-          
-
-               <LogoutButton />
-         
-           
+            <div className="hidden md:flex "> <LogoutButton onClick={handleSignOut} /></div>
+            
           ) : (
             <div className="hidden md:flex items-center gap-3">
               <NavLink
@@ -80,7 +74,6 @@ const Navbar = () => {
             </div>
           )}
 
-     
           <div className="md:hidden flex items-center">
             <details className="relative">
               <summary className="text-2xl cursor-pointer text-white list-none">
@@ -90,7 +83,7 @@ const Navbar = () => {
                 {links}
                 {user ? (
                   <button
-                    onClick={signOut}
+                    onClick={handleSignOut}
                     className="text-left px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white text-sm transition duration-300"
                   >
                     Log Out

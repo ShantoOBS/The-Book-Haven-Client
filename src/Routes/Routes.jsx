@@ -16,39 +16,46 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Layout></Layout>,
 
-    children :[
-        {
-             index:true,
-             element: <Home></Home>
+    children: [
+      {
+        index: true,
+        element: <Home></Home>
+      },
+      {
+        path: '/all-books',
+        loader: async () => {
+          const res = await fetch('http://localhost:3000/all-book');
+          if (!res.ok) {
+            throw new Response("Failed to load books", { status: res.status });
+          }
+          return res.json();
         },
-        {
-          path:'/all-books',
-          element: <AllBook></AllBook>
-        },
-        {
-          path:'/add-book',
-          element: <AddBook></AddBook>
-        },
-        {
-          path:'/my-books' ,
-          element: <MyBook></MyBook>
-        },
-        {
-          path:'/login' ,
-          element: <Login></Login>
-        },
-        {
-          path:'/register' ,
-          element: <Register></Register>
-        },
-        {
-          path:'/book-details',
-          element: <BookDetails></BookDetails>
-        },
-        {
-         path:'/*',
-         element: <NotFound></NotFound> 
-        }
+        element: <AllBook />
+      },
+      {
+        path: '/add-book',
+        element: <AddBook></AddBook>
+      },
+      {
+        path: '/my-books',
+        element: <MyBook></MyBook>
+      },
+      {
+        path: '/login',
+        element: <Login></Login>
+      },
+      {
+        path: '/register',
+        element: <Register></Register>
+      },
+      {
+        path: '/book-details',
+        element: <BookDetails></BookDetails>
+      },
+      {
+        path: '/*',
+        element: <NotFound></NotFound>
+      }
     ]
   },
 ]);

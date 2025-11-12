@@ -4,46 +4,10 @@ import { Link } from "react-router";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
 
-const allBooks = [
-  {
-    id: 1,
-    title: "The Silent Dawn",
-    author: "Ava Stone",
-    genre: "Mystery",
-    rating: 4,
-    summary:
-      "A gripping tale of hope, mystery, and the resilience of the human spirit.",
-    coverImage:
-      "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=800&q=60",
-    userEmail: "ava@example.com",
-  },
-  {
-    id: 2,
-    title: "Echoes of Tomorrow",
-    author: "Liam Carter",
-    genre: "Science Fiction",
-    rating: 5,
-    summary:
-      "A sci-fi adventure exploring the edge of time, love, and technology.",
-    coverImage:
-      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=800&q=60",
-    userEmail: "liam@example.com",
-  },
-  {
-    id: 3,
-    title: "Whispers in the Wind",
-    author: "Sophia Miles",
-    genre: "Romance",
-    rating: 3,
-    summary:
-      "A poetic journey through love and rediscovery in the hills of Tuscany.",
-    coverImage:
-      "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=60",
-    userEmail: "sophia@example.com",
-  },
-];
 
-const AllBooksFullWidth = () => {
+
+
+const AllBooksFullWidth = ({allBooks}) => {
   const renderStars = (rating) =>
     Array.from({ length: 5 }, (_, i) =>
       i < rating ? (

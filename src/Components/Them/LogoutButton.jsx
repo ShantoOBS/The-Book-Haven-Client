@@ -1,30 +1,33 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
-import { AuthContext } from '../../Provider/AuthProvider';
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { AuthContext } from "../../Provider/AuthProvider";
 
-const LogoutButton = () => {
-  
-   const {setUser,handleLogout}=useContext(AuthContext);
+const LogoutButton = ({ onLogout }) => {
+  const { signOutUser, setUser,user } = useContext(AuthContext);
 
-   const handelLogOut=()=>{
-
-      handleLogout()
-      setUser(null);
-   }
+  const handleLogOut = () => {
+    signOutUser()
+      .then(() => {
+        setUser(null);
+        if (onLogout) onLogout(); 
+      })
+      .catch((error) => console.error("Logout error:", error));
+  };
 
   return (
     <StyledWrapper>
-      <button 
-      onClick={handelLogOut}
-      className="Btn">
+      <button onClick={handleLogOut} className="Btn">
         <div className="sign">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTShZ42ixLLDas7Vp5s07jlza2Bj9jrQKgFm1MITv9G3ncaB4_26oHCvBjS5p8w4j-Rk6OZ8550Ps-g6hw1_kRp-K--BwCY2hhHOycqoFcR&s=10" alt="" />
+          <img
+            src={user?.photoURL || user?.reloadUserInfo?.photoUrl }
+            alt="logout"
+          />
         </div>
         <div className="text">Logout</div>
       </button>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .Btn {
@@ -33,18 +36,16 @@ const StyledWrapper = styled.div`
     justify-content: flex-start;
     width: 35px;
     height: 35px;
- border-radius: 7px;
+    border-radius: 50px;
     border: 1px solid rgb(61, 106, 255);
     cursor: pointer;
     position: relative;
     overflow: hidden;
     transition-duration: 0.3s;
-    color: #fff; /* 🔹 Text color white */
+    color: #fff;
     background-color: transparent;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    font-family: ui-sans-serif, system-ui, sans-serif, 
-      "Apple Color Emoji", "Segoe UI Emoji", 
-      "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: ui-sans-serif, system-ui, sans-serif;
   }
 
   .sign {
@@ -55,20 +56,12 @@ const StyledWrapper = styled.div`
     justify-content: center;
   }
 
-  .sign svg {
-    width: 17px;
-  }
-
-  .sign svg path {
-    fill: #fff; /* 🔹 Icon color white */
-  }
-
   .text {
     position: absolute;
     right: 0%;
     width: 0%;
     opacity: 0;
-    color: #fff; /* 🔹 Text color white */
+    color: #fff;
     font-size: 16px;
     font-weight: 600;
     transition-duration: 0.3s;
@@ -77,7 +70,7 @@ const StyledWrapper = styled.div`
   .Btn:hover {
     width: 125px;
     border-radius: 5px;
-    background: #3D6AFF; /* 🔹 Blue hover background */
+    background: #3d6aff;
     transition-duration: 0.3s;
   }
 

@@ -1,88 +1,130 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router"; // ✅ fixed import
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
-import bookImage from '../../public/assets/book.jpg'
+import bookImage from "../../public/assets/book.jpg";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
-     useEffect(() => {
-     document.title = "Login | Book-Haven";
-     }, []);
+  useEffect(() => {
+    document.title = "Login | Book-Haven";
+  }, []);
 
-  const {signInGoogle ,setUser,setError,setLoading }=useContext(AuthContext)
+  const { signInGoogle, setUser, setError, setLoading, loginUser, forgatePass } =
+    useContext(AuthContext);
+
   const [showPassword, setShowPassword] = useState(false);
+  const [emailForReset, setEmailForReset] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-   
+
+  
   const handleLogin = (e) => {
     e.preventDefault();
-    setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
 
+    if (!email || !password) {
+      toast.error("Please fill in all fields!");
+      return;
+    }
 
+    setLoading(true);
+    loginUser(email, password)
+      .then((res) => {
+        setUser(res.user);
+        toast.success("Login Successful!");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        setError(err.message);
+        toast.error("Invalid email or password!");
+      })
+      .finally(() => setLoading(false));
   };
 
-   const handleGoogleLogin = () => {
+ 
+  const handleGoogleLogin = () => {
+    setLoading(true);
     signInGoogle()
       .then((res) => {
         setUser(res.user);
-        navigate(location.state ? location.state : '/');
+        toast.success("Login Successful!");
+        navigate(from, { replace: true });
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        setError(err.message);
+        toast.error("Google login failed!");
+      })
+      .finally(() => setLoading(false));
   };
 
+  const handleForgotPassword = () => {
+    if (!emailForReset) {
+      toast.error("Please enter your email first!");
+      return;
+    }
 
+    forgatePass(emailForReset)
+      .then(() => {
+        toast.success("Password reset email sent!");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 py-20 px-4">
-      <div className="flex flex-col md:flex-row bg-white/5 
-      overflow-hidden shadow-2xl max-w-4xl w-full">
+      <Toaster position="top-center" reverseOrder={false} />
 
+      <div className="flex flex-col md:flex-row bg-white/5 overflow-hidden shadow-2xl max-w-4xl w-full">
+       
         <div
-          className="md:w-1/2  md:h-auto bg-cover bg-center"
+          className="md:w-1/2 md:h-auto bg-cover bg-center"
           style={{
-            backgroundImage:
-             `url(${bookImage})`,
+            backgroundImage: `url(${bookImage})`,
           }}
         ></div>
 
-
+     
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="md:w-1/2 w-full flex items-center justify-center "
+          className="md:w-1/2 w-full flex items-center justify-center"
         >
-          <div className="w-full max-w-md bg-[#111827]  p-8 shadow-lg ">
+          <div className="w-full max-w-md bg-[#111827] p-8 shadow-lg">
             <h2 className="text-3xl font-bold text-white text-center mb-2">
-              Welcome Back 
+              Welcome Back
             </h2>
             <p className="text-gray-400 text-center mb-4">
               Access your library account
             </p>
 
-            <form  onSubmit={handleLogin} className="space-y-5">
-       
+            <form onSubmit={handleLogin} className="space-y-5">
               <div>
                 <label className="block text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter your email"
+                  onChange={(e) => setEmailForReset(e.target.value)}
                   className="w-full px-4 py-2 bg-[#1F2937] text-white rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                  required
                 />
               </div>
 
-         
               <div className="relative">
                 <label className="block text-gray-300 mb-2">Password</label>
                 <input
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="w-full px-4 py-2 bg-[#1F2937] text-white rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                  required
                 />
                 <span
                   className="absolute right-3 top-11 text-gray-400 cursor-pointer"
@@ -92,14 +134,16 @@ const Login = () => {
                 </span>
               </div>
 
- 
               <div className="flex justify-end">
-                <p className="text-sm text-indigo-400 hover:text-indigo-300 cursor-pointer transition-all">
-                  Forget Password?
+                <p
+                  onClick={handleForgotPassword}
+                  className="text-sm text-indigo-400 hover:text-indigo-300 cursor-pointer transition-all"
+                >
+                  Forgot Password?
                 </p>
               </div>
 
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
@@ -109,16 +153,16 @@ const Login = () => {
               </motion.button>
             </form>
 
-         
+       
             <div className="flex items-center gap-2 my-4">
               <div className="flex-grow h-px bg-gray-600"></div>
               <span className="text-gray-400 text-sm">or</span>
               <div className="flex-grow h-px bg-gray-600"></div>
             </div>
 
-     
+          
             <motion.button
-             onClick={handleGoogleLogin}
+              onClick={handleGoogleLogin}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.95 }}
               className="w-full flex justify-center items-center gap-2 bg-white transition-all py-2 rounded-md font-medium"
