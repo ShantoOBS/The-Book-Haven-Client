@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
         element: <Register></Register>
       },
       {
-        path: '/book-details',
+        path: '/book-details/:id',
         element: <BookDetails></BookDetails>
       },
       {

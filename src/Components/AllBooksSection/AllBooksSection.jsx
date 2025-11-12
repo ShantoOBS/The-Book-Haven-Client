@@ -35,13 +35,13 @@ const AllBooksSection = ({ allBooks }) => {
             onClick={() => sortByRating("asc")}
             className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded"
           >
-            Sort by Rating ↑
+            Sort by Rating ↓
           </button>
           <button
             onClick={() => sortByRating("desc")}
             className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded"
           >
-            Sort by Rating ↓
+            Sort by Rating ↑
           </button>
         </div>
       </div>
@@ -75,7 +75,7 @@ const AllBooksSection = ({ allBooks }) => {
                 <p className="text-gray-300 text-sm line-clamp-3">{book.summary}</p>
               </div>
               <div className="mt-4 flex items-center justify-between">
-                <Link to="/book-details">
+                <Link to={`/book-details/${book._id}`}>
                   <button className="bg-blue-600 hover:bg-blue-700 py-2 px-6 rounded-lg text-white font-medium transition">
                     View Details
                   </button>
