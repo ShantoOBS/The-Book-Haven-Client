@@ -10,6 +10,7 @@ export default function PrivateRoutes({ children }) {
   if (loading) return <Loading />;
 
   if (user) return children;
+  
 
   return <Navigate state={location.pathname} to="/login" />;
 }
