@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const AddBook = () => {
    useEffect(() => {
         document.title = "AddBook | Book-Haven";
       }, []);
-
+   const {user} =useContext(AuthContext);
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -25,10 +26,14 @@ const handleSubmit = async (e) => {
     
   };
 
-  console.log(bookData); 
+
+  const token=user.accessToken;
 
   try {
-    const res = await axios.post("http://localhost:3000/add-book", bookData);
+    const res = await axios.post("http://localhost:3000/add-book", bookData,{
+      headers: {
+        authorization: `Bearer ${token}`,
+      }});
     if (res.status === 200 || res.status === 201) {
       toast.success("Book added successfully!");
       form.reset(); 
@@ -37,6 +42,7 @@ const handleSubmit = async (e) => {
     console.error(error);
     toast.error("Failed to add book");
   }
+
 };
 
 

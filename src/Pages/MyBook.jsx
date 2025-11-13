@@ -9,11 +9,15 @@ const MyBook = () => {
   const [loading, setLoading] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null); 
   const [showModal, setShowModal] = useState(false); 
-
+  
+   const token=user.accessToken;
 
   const fetchBooks = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/all-book?email=${user.email}`);
+      const res = await axios.get(`http://localhost:3000/all-book?email=${user.email}`,{
+      headers: {
+        authorization: `Bearer ${token}`,
+      }});
       setBooks(res.data);
       setLoading(false);
     } catch (err) {
@@ -28,9 +32,14 @@ const MyBook = () => {
 
   
   const handleDelete = async (id) => {
-    
+ 
     try {
-      const res = await axios.delete(`http://localhost:3000/delete-book/${id}`);
+      const res = await axios.delete(`http://localhost:3000/delete-book/${id}`, {
+      data: { email: user.email },
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
       if (res.status === 200) {
         setBooks(books.filter((book) => book._id !== id));
         toast.success("Book deleted successfully!");
@@ -50,7 +59,10 @@ const MyBook = () => {
   const handleModalSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.patch(`http://localhost:3000/update-book/${selectedBook._id}`, selectedBook);
+      const res = await axios.patch(`http://localhost:3000/update-book/${selectedBook._id}`, selectedBook,{
+      headers: {
+        authorization: `Bearer ${token}`,
+      }});
       if (res.status === 200) {
         toast.success("Book updated successfully!");
         setBooks(
