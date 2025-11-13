@@ -18,7 +18,7 @@ const MyBook = () => {
 
   const fetchBooks = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/all-book?email=${user.email}`, {
+      const res = await axios.get(`https://the-book-haven-server-delta.vercel.app/all-book?email=${user.email}`, {
         headers: { authorization: `Bearer ${token}` },
       });
       setBooks(res.data);
@@ -35,7 +35,7 @@ const MyBook = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:3000/delete-book/${id}`, {
+      const res = await axios.delete(`https://the-book-haven-server-delta.vercel.app/delete-book/${id}`, {
         data: { email: user.email },
         headers: { authorization: `Bearer ${token}` },
       });
@@ -57,7 +57,7 @@ const MyBook = () => {
     e.preventDefault();
     try {
       const res = await axios.patch(
-        `http://localhost:3000/update-book/${selectedBook._id}`,
+        `https://the-book-haven-server-delta.vercel.app/update-book/${selectedBook._id}`,
         selectedBook,
         { headers: { authorization: `Bearer ${token}` } }
       );
@@ -140,7 +140,7 @@ const MyBook = () => {
         )}
       </div>
 
-      {/* Modal */}
+
       {showModal && selectedBook && (
         <div
           className={`fixed inset-0 flex items-center justify-center z-50 transition-colors ${

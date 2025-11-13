@@ -22,12 +22,12 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:3000/all-book"),
+        loader: () => fetch("https://the-book-haven-server-delta.vercel.app/all-book"),
         hydrateFallbackElement: <Loader></Loader>
       },
       {
         path: '/all-books',
-        loader: async () =>  fetch('http://localhost:3000/all-book'),
+        loader: async () =>  fetch('https://the-book-haven-server-delta.vercel.app/all-book'),
         element: <AllBook />,
         hydrateFallbackElement: <Loader></Loader>
       },

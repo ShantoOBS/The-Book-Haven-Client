@@ -89,13 +89,13 @@ const Register = () => {
           isLight ? "bg-white/5" : "bg-white/5"
         }`}
       >
-        {/* Image Section */}
+
         <div
           className="md:w-1/2 md:h-auto bg-cover bg-center"
           style={{ backgroundImage: `url(${bookImage})` }}
         ></div>
 
-        {/* Form Section */}
+ 
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -152,7 +152,7 @@ const Register = () => {
                 </div>
               ))}
 
-              {/* Password */}
+      
               <div className="relative">
                 <label
                   className={`block mb-2 transition-colors ${

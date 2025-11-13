@@ -20,7 +20,7 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/book-details/${id}`);
+        const res = await axios.get(`https://the-book-haven-server-delta.vercel.app/book-details/${id}`);
         setBook(res.data);
         setLoading(false);
       } catch (err) {
@@ -33,7 +33,7 @@ const BookDetails = () => {
 
   const fetchComments = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/book-comments/${id}`);
+      const res = await axios.get(`https://the-book-haven-server-delta.vercel.app/book-comments/${id}`);
       setComments(res.data);
     } catch (err) {
       console.error(err);
@@ -61,7 +61,7 @@ const BookDetails = () => {
     };
 
     try {
-      await axios.post("http://localhost:3000/add-comment", commentData, {
+      await axios.post("https://the-book-haven-server-delta.vercel.app/add-comment", commentData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNewComment("");

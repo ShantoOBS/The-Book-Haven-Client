@@ -37,7 +37,7 @@ const LibraryBooks = ({ books = [] }) => {
             isLight ? "text-gray-900" : "text-white"
           }`}
         >
-          Library Books
+         6 Latest Books
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
