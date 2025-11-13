@@ -1,39 +1,41 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { ThemeContext } from "../../Provider/ThemeProvider";
 
-const Button = ({Name}) => {
+
+const Button = ({ Name }) => {
+  const { theme } = useContext(ThemeContext);
+  const isLight = theme === "light";
+
   return (
-    <StyledWrapper>
-      <button>
-        {
-         Name
-       }
-      </button>
+    <StyledWrapper isLight={isLight}>
+      <button>{Name}</button>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   button {
     position: relative;
     padding: 8px 20px;
     border-radius: 7px;
-    border: 1px solid rgb(61, 106, 255);
+    border: 1px solid ${(props) => (props.isLight ? "#3D6AFF" : "#5C7AEA")};
     font-size: 16px;
     font-weight: 600;
-    background: transparent;
-    color: #fff;
+    background: ${(props) => (props.isLight ? "transparent" : "#1F2937")};
+    color: ${(props) => (props.isLight ? "#3D6AFF" : "#fff")};
     overflow: hidden;
     box-shadow: 0 0 0 0 transparent;
     transition: all 0.2s ease-in;
-    cursor: pointer; /* 👈 Added this line */
-    font-family: ui-sans-serif, system-ui, sans-serif, 
-      "Apple Color Emoji", "Segoe UI Emoji", 
-      "Segoe UI Symbol", "Noto Color Emoji"; 
+    cursor: pointer;
+    font-family: ui-sans-serif, system-ui, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
   }
 
   button:hover {
-    background: rgb(61, 106, 255);
+    background: ${(props) => (props.isLight ? "#3D6AFF" : "#3B82F6")};
+    color: #fff;
     box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
     transition: all 0.2s ease-out;
   }
@@ -43,7 +45,7 @@ const StyledWrapper = styled.div`
   }
 
   button::before {
-    content: '';
+    content: "";
     display: block;
     width: 0px;
     height: 86%;

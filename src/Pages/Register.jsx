@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router"; // ✅ fixed import
+import { Link, useNavigate } from "react-router";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { motion } from "framer-motion";
 import bookImage from "../../public/assets/book.jpg";
 import { AuthContext } from "../Provider/AuthProvider";
+import { ThemeContext } from "../Provider/ThemeProvider"; // theme context
 import toast from "react-hot-toast";
 
 const Register = () => {
+  const { theme } = useContext(ThemeContext);
+  const isLight = theme === "light";
+
   useEffect(() => {
     document.title = "Register | Book-Haven";
   }, []);
@@ -40,7 +44,7 @@ const Register = () => {
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-        updatePro({ displayName: name, photoURL: photo }) 
+        updatePro({ displayName: name, photoURL: photo })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
             setLoading(false);
@@ -75,26 +79,42 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-20 px-4">
-      <div className="flex flex-col md:flex-row bg-white/5 overflow-hidden shadow-2xl max-w-4xl w-full">
-      
+    <div
+      className={`min-h-screen flex items-center justify-center py-20 px-4 transition-colors ${
+        isLight ? "bg-gray-100" : "bg-gray-900"
+      }`}
+    >
+      <div
+        className={`flex flex-col md:flex-row overflow-hidden shadow-2xl max-w-4xl w-full transition-colors ${
+          isLight ? "bg-white/5" : "bg-white/5"
+        }`}
+      >
+        {/* Image Section */}
         <div
           className="md:w-1/2 md:h-auto bg-cover bg-center"
           style={{ backgroundImage: `url(${bookImage})` }}
         ></div>
 
-      
+        {/* Form Section */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="md:w-1/2 w-full flex items-center justify-center"
         >
-          <div className="w-full max-w-md bg-[#111827] p-8 shadow-lg">
-            <h2 className="text-3xl font-bold text-white text-center mb-2">
+          <div
+            className={`w-full max-w-md p-8 shadow-lg rounded-lg transition-colors ${
+              isLight ? "bg-white text-gray-900" : "bg-[#111827] text-white"
+            }`}
+          >
+            <h2 className="text-3xl font-bold text-center mb-2">
               Create Account
             </h2>
-            <p className="text-gray-400 text-center mb-4">
+            <p
+              className={`text-center mb-4 transition-colors ${
+                isLight ? "text-gray-600" : "text-gray-400"
+              }`}
+            >
               Start your library journey
             </p>
 
@@ -105,46 +125,52 @@ const Register = () => {
             )}
 
             <form onSubmit={handleRegister} className="space-y-5">
-              <div>
-                <label className="block text-gray-300 mb-2">Full Name</label>
-                <input
-                  type="text"
-                  placeholder="Enter your full name"
-                  name="name"
-                  className="w-full px-4 py-2 bg-[#1F2937] text-white rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                  required
-                />
-              </div>
+              {[
+                { label: "Full Name", name: "name", type: "text", placeholder: "Enter your full name" },
+                { label: "Email", name: "email", type: "email", placeholder: "Enter your email" },
+                { label: "Photo URL", name: "photoURL", type: "text", placeholder: "Enter your photo URL" },
+              ].map((field) => (
+                <div key={field.name}>
+                  <label
+                    className={`block mb-2 transition-colors ${
+                      isLight ? "text-gray-700" : "text-gray-300"
+                    }`}
+                  >
+                    {field.label}
+                  </label>
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    required
+                    className={`w-full px-4 py-2 rounded-md outline-none transition-colors ${
+                      isLight
+                        ? "bg-gray-100 text-gray-900 border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                        : "bg-[#1F2937] text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+                    }`}
+                  />
+                </div>
+              ))}
 
-              <div>
-                <label className="block text-gray-300 mb-2">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-2 bg-[#1F2937] text-white rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-300 mb-2">Photo URL</label>
-                <input
-                  type="text"
-                  placeholder="Enter your photo URL"
-                  name="photoURL"
-                  className="w-full px-4 py-2 bg-[#1F2937] text-white rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                />
-              </div>
-
+              {/* Password */}
               <div className="relative">
-                <label className="block text-gray-300 mb-2">Password</label>
+                <label
+                  className={`block mb-2 transition-colors ${
+                    isLight ? "text-gray-700" : "text-gray-300"
+                  }`}
+                >
+                  Password
+                </label>
                 <input
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
-                  className="w-full px-4 py-2 bg-[#1F2937] text-white rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                   required
+                  className={`w-full px-4 py-2 rounded-md outline-none transition-colors ${
+                    isLight
+                      ? "bg-gray-100 text-gray-900 border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                      : "bg-[#1F2937] text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+                  }`}
                 />
                 <span
                   className="absolute right-3 top-11 text-gray-400 cursor-pointer"
@@ -184,7 +210,11 @@ const Register = () => {
               Continue with Google
             </motion.button>
 
-            <p className="text-center text-gray-400 mt-4 text-sm">
+            <p
+              className={`text-center mt-4 text-sm transition-colors ${
+                isLight ? "text-gray-600" : "text-gray-400"
+              }`}
+            >
               Already have an account?{" "}
               <Link
                 to="/login"
