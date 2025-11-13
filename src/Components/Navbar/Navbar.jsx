@@ -35,7 +35,7 @@ const Navbar = () => {
         ${isLight ? "bg-white shadow-md" : "bg-gray-900 shadow-lg"}`}
     >
       <div className="max-w-6xl mx-auto flex justify-between items-center px-5 md:px-15 py-3">
-        {/* Logo */}
+    
         <div className="flex items-center">
           <Link
             to="/"
@@ -46,7 +46,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-4">
           {links}
 
@@ -63,7 +62,7 @@ const Navbar = () => {
           </button>
         </nav>
 
-        {/* Auth Buttons & Mobile Menu */}
+     
         <div className="flex items-center gap-3">
           {user ? (
             <div className="hidden md:flex">
@@ -81,14 +80,14 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* Mobile Menu */}
+          
           <div className="md:hidden flex items-center">
             <details className="relative">
               <summary
                 className={`text-2xl cursor-pointer transition-colors
                   ${isLight ? "text-gray-900" : "text-white"}`}
               >
-                ☰
+                
               </summary>
               <div
                 className={`absolute right-0 mt-3 rounded-lg shadow-lg p-3 flex flex-col gap-2 w-60 transition-colors
