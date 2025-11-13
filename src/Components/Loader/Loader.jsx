@@ -3,9 +3,14 @@ import styled from 'styled-components';
 
 const Loader = () => {
   return (
-    <StyledWrapper>
+    <div className='bg-[#0B1120] '>
+
+       <StyledWrapper className='py-60'>
       <div className="loader" />
-    </StyledWrapper>
+     </StyledWrapper>
+
+    </div>
+   
   );
 }
 

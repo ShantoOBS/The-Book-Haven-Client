@@ -11,6 +11,7 @@ import Register from '../Pages/Register';
 import NotFound from '../Pages/NotFound';
 import BookDetails from '../Components/BookDetails/BookDetails'
 import PrivateRoutes from '../Provider/PrivateRoutes';
+import Loader from '../Components/Loader/Loader';
 
 export const router = createBrowserRouter([
   {
@@ -21,12 +22,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:3000/all-book")
+        loader: () => fetch("http://localhost:3000/all-book"),
+        hydrateFallbackElement: <Loader></Loader>
       },
       {
         path: '/all-books',
         loader: async () =>  fetch('http://localhost:3000/all-book'),
-        element: <AllBook />
+        element: <AllBook />,
+        hydrateFallbackElement: <Loader></Loader>
       },
       {
         path: '/add-book',

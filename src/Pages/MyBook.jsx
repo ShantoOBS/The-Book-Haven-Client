@@ -127,86 +127,125 @@ const MyBook = () => {
         )}
       </div>
 
-      {showModal && selectedBook && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-          <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-            <h2 className="text-2xl font-semibold mb-4">Update Book</h2>
-            <form onSubmit={handleModalSubmit} className="space-y-4">
-              <input
-                type="text"
-                name="title"
-                value={selectedBook.title}
-                onChange={handleChange}
-                placeholder="Title"
-                className="w-full p-2 rounded bg-gray-800 border border-gray-700"
-              />
-              <input
-                type="text"
-                name="author"
-                value={selectedBook.author}
-                onChange={handleChange}
-                placeholder="Author"
-                className="w-full p-2 rounded bg-gray-800 border border-gray-700"
-              />
-              <input
-                type="text"
-                name="genre"
-                value={selectedBook.genre}
-                onChange={handleChange}
-                placeholder="Genre"
-                className="w-full p-2 rounded bg-gray-800 border border-gray-700"
-              />
-              <input
-                type="number"
-                name="rating"
-                value={selectedBook.rating}
-                onChange={handleChange}
-                placeholder="Rating (1–5)"
-                className="w-full p-2 rounded bg-gray-800 border border-gray-700"
-              />
-              <textarea
-                name="summary"
-                value={selectedBook.summary}
-                onChange={handleChange}
-                placeholder="Summary"
-                className="w-full p-2 rounded bg-gray-800 border border-gray-700"
-              ></textarea>
-              <input
-                type="text"
-                name="coverImage"
-                value={selectedBook.coverImage}
-                onChange={handleChange}
-                placeholder="Cover Image URL"
-                className="w-full p-2 rounded bg-gray-800 border border-gray-700"
-              />
-              <input
-                type="email"
-                name="userEmail"
-                value={selectedBook.userEmail}
-                onChange={handleChange}
-                placeholder="User Email"
-                className="w-full p-2 rounded bg-gray-800 border border-gray-700"
-              />
-
-              <div className="flex justify-end gap-3 mt-4">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </form>
-          </div>
+{showModal && selectedBook && (
+  <div className="fixed inset-0 bg-[#0B1120] bg-opacity-70 flex items-center justify-center z-50">
+    <div className="bg-gray-900 text-white p-3 rounded-lg shadow-lg w-full max-w-sm max-h-[85vh] overflow-y-auto">
+      <h2 className="text-lg font-semibold mb-2 text-center">Update Book</h2>
+      <form onSubmit={handleModalSubmit} className="space-y-2">
+        
+        {/* Title */}
+        <div>
+          <label className="block mb-0.5 text-xs font-medium">Title</label>
+          <input
+            type="text"
+            name="title"
+            value={selectedBook.title}
+            onChange={handleChange}
+            placeholder="Title"
+            className="w-full p-1.5 rounded bg-gray-800 border border-gray-700 text-xs"
+          />
         </div>
-      )}
+
+        {/* Author */}
+        <div>
+          <label className="block mb-0.5 text-xs font-medium">Author</label>
+          <input
+            type="text"
+            name="author"
+            value={selectedBook.author}
+            onChange={handleChange}
+            placeholder="Author"
+            className="w-full p-1.5 rounded bg-gray-800 border border-gray-700 text-xs"
+          />
+        </div>
+
+        {/* Genre */}
+        <div>
+          <label className="block mb-0.5 text-xs font-medium">Genre</label>
+          <input
+            type="text"
+            name="genre"
+            value={selectedBook.genre}
+            onChange={handleChange}
+            placeholder="Genre"
+            className="w-full p-1.5 rounded bg-gray-800 border border-gray-700 text-xs"
+          />
+        </div>
+
+        {/* Rating */}
+        <div>
+          <label className="block mb-0.5 text-xs font-medium">Rating (1–5)</label>
+          <input
+            type="number"
+            name="rating"
+            value={selectedBook.rating}
+            onChange={handleChange}
+            placeholder="Rating"
+            className="w-full p-1.5 rounded bg-gray-800 border border-gray-700 text-xs"
+          />
+        </div>
+
+        {/* Summary */}
+        <div>
+          <label className="block mb-0.5 text-xs font-medium">Summary</label>
+          <textarea
+            name="summary"
+            value={selectedBook.summary}
+            onChange={handleChange}
+            placeholder="Summary"
+            rows="2"
+            className="w-full p-1.5 rounded bg-gray-800 border border-gray-700 text-xs resize-none"
+          ></textarea>
+        </div>
+
+        {/* Cover Image */}
+        <div>
+          <label className="block mb-0.5 text-xs font-medium">Cover Image URL</label>
+          <input
+            type="text"
+            name="coverImage"
+            value={selectedBook.coverImage}
+            onChange={handleChange}
+            placeholder="Cover Image URL"
+            className="w-full p-1.5 rounded bg-gray-800 border border-gray-700 text-xs"
+          />
+        </div>
+
+        {/* User Email */}
+        <div>
+          <label className="block mb-0.5 text-xs font-medium">User Email</label>
+          <input
+            type="email"
+            name="userEmail"
+            value={selectedBook.userEmail}
+            onChange={handleChange}
+            placeholder="User Email"
+            className="w-full p-1.5 rounded bg-gray-800 border border-gray-700 text-xs"
+          />
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-end gap-2 mt-2">
+          <button
+            type="button"
+            onClick={() => setShowModal(false)}
+            className="px-2 py-1 bg-gray-700 text-xs rounded hover:bg-gray-600"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-2 py-1 bg-blue-600 text-xs rounded hover:bg-blue-700"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 };
