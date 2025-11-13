@@ -1,16 +1,61 @@
-# React + Vite
+# The Book Haven 📚
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Live Site Link](YOUR_LIVE_SITE_URL)  
 
-Currently, two official plugins are available:
+The Book Haven is a full-stack web application that allows users to explore, add, update, and delete books in a digital library. Authenticated users can manage their own books while everyone can browse the library. The project demonstrates the integration of a **Node.js + Express.js** backend, **MongoDB Atlas** for database, and **Firebase Authentication**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features ✨
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **User Authentication:** Login, Registration, and Google OAuth integration.  
+- **CRUD Operations:** Add, view, update, and delete books.  
+- **Dynamic Homepage:** Displays latest 6 books added dynamically from MongoDB.  
+- **Private Routes:** Only authenticated users can access add, update, and delete book pages.  
+- **Responsive Design:** Works seamlessly on mobile, tablet, and desktop devices.  
+- **Dark/Light Theme:** Toggle between dark and light themes.  
+- **Real-time Notifications:** Success and error messages displayed using React Hot Toast.  
+- **Advanced Sorting:** Sort books based on rating on the All Books page.  
+- **Custom 404 Page:** Friendly error page for invalid routes.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used 🛠️
+
+- **Frontend:** React.js, Tailwind CSS, Framer Motion, React Hot Toast  
+- **Backend:** Node.js, Express.js, MongoDB Atlas, Axios  
+- **Authentication:** Firebase Authentication (Email & Google Login)  
+- **Hosting:** Netlify (Client) & Vercel (Server)  
+- **Other Packages:** React Tooltip, Date-fns  
+
+---
+
+
+## Pages & Routes 📄
+
+- `/` → Home page with banner, latest books, top genres, and featured books  
+- `/all-books` → Displays all books in a table with sorting by rating  
+- `/add-book` → Add a new book (Private Route)  
+- `/my-books` → Shows books added by logged-in user (Private Route)  
+- `/update-book/:id` → Update book details (Private Route)  
+- `/delete-book/:id` → Delete a selected book (Private Route)  
+- `/book-details/:id` → View detailed information of a book (Private Route)  
+- `/login` → User login page with email/password and Google OAuth  
+- `/register` → User registration page  
+
+---
+
+## Data Structure (MongoDB)
+
+```json
+{
+  "title": "Book Title",
+  "author": "Author Name",
+  "genre": "Fantasy / Mystery / Non-Fiction etc.",
+  "rating": "1–5 scale",
+  "summary": "Short description of the book",
+  "coverImage": "imgbb image URL",
+  "userEmail": "email of the user who added the book",
+  "userName": "name of the user who added the book",
+  "createdAt": "ISO timestamp"
+}
