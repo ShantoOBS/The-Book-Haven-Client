@@ -1,6 +1,6 @@
 # The Book Haven 📚
 
-[Live Site Link](YOUR_LIVE_SITE_URL)  
+[Live Site Link](https://the-book-haven-client-4jzq9ru1u-shanta-shils-projects.vercel.app/) 
 
 The Book Haven is a full-stack web application that allows users to explore, add, update, and delete books in a digital library. Authenticated users can manage their own books while everyone can browse the library. The project demonstrates the integration of a **Node.js + Express.js** backend, **MongoDB Atlas** for database, and **Firebase Authentication**.
 
